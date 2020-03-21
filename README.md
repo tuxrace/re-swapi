@@ -23,4 +23,9 @@ Open the app
 
 http://localhost:3000
 
+Test the app
+
+### `npm run test`
+
+
 

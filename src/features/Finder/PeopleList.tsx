@@ -6,6 +6,7 @@ import { API_URL } from "../../rest/constants";
 import Details from "./Details";
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
+import { peopleDataState } from "../../models/people/selectors";
 
 const Transition = React.forwardRef<unknown, TransitionProps>(
   function Transition(props, ref) {
@@ -17,9 +18,11 @@ type Props = {
   loadAllPeople: (params: any) => void;
   response: any;
   search: string | any;
+  peopleData: Array<any>;
+  savePeopleData: (params: any) => void;
 };
 
-const PeopleList: React.FC<Props> = ({ loadAllPeople, response, search }) => {
+const PeopleList: React.FC<Props> = ({ loadAllPeople, response, search, peopleData, savePeopleData }) => {
   const [state, setState]: any = useState({
     list: [],
     next: API_URL,
@@ -43,7 +46,7 @@ const PeopleList: React.FC<Props> = ({ loadAllPeople, response, search }) => {
 
     if (res.next) {
       setState({
-        hasNext: state.list.length < res.count,
+        hasNext: peopleData.length < res.count,
         isLoading: false,
         list: [...state.list].concat(res.results),
         next: res.next
@@ -55,6 +58,7 @@ const PeopleList: React.FC<Props> = ({ loadAllPeople, response, search }) => {
         list: [...state.list].concat(res.results)
       });
     }
+    savePeopleData(state.list);
   };
 
   const doSearch = async () => {
@@ -71,17 +75,19 @@ const PeopleList: React.FC<Props> = ({ loadAllPeople, response, search }) => {
 
     if (res.next) {
       setState({
-        hasNext: state.list.length < res.count,
+        hasNext: peopleData.length < res.count,
         isLoading: false,
         list: (isSearch ? [...state.list] : []).concat(res.results),
         next: res.next
       });
+      savePeopleData(state.list);
     } else {
       setState({
         hasNext: false,
         isLoading: false,
         list: res.results
       });
+      savePeopleData(res.results);
     }
   };
 
@@ -93,17 +99,16 @@ const PeopleList: React.FC<Props> = ({ loadAllPeople, response, search }) => {
     setState({ ...state, showModal: false, selected: null });
   };
 
-  const data = state.list[state.selected] || {};
-
+  const data = peopleData[state.selected] || {};
   return (
     <Fragment>
       {state.isLoadingSearch ? (
-        <LinearProgress />
+        <LinearProgress variant="query" />
       ) : (
         <ListWrapper
           hasNext={state.hasNext}
           loadNext={loadNext}
-          list={state.list}
+          list={peopleData}
           isLoading={state.isLoading}
           response={response}
           handleClickListItem={handleClickListItem}
@@ -122,12 +127,14 @@ const PeopleList: React.FC<Props> = ({ loadAllPeople, response, search }) => {
 
 const mapState = (state: any) => {
   return {
+    peopleData: peopleDataState(state),
     response: state.people.response
   };
 };
 
 const mapDispatch = (dispatch: any) => ({
-  loadAllPeople: dispatch.people.loadAllPeople
+  loadAllPeople: dispatch.people.loadAllPeople,
+  savePeopleData: dispatch.people.peopleData,
 });
 
 export default connect(mapState, mapDispatch)(PeopleList);

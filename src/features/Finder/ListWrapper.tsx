@@ -26,8 +26,11 @@ const ListWrapper = ({
   const isItemLoaded = (index: number) => !hasNext || index < list.length;
   const isDesktop = width === "lg";
   const classes = useStyles();
-
-  const Row = ({ index, style }: any) => {
+  type Props = {
+    index: number;
+    style: any;
+  };
+  const Row: React.FC<Props> = ({ index, style }) => {
     let content;
     if (!isItemLoaded(index)) {
       content = (
@@ -46,7 +49,6 @@ const ListWrapper = ({
         </Grid>
       );
     }
-
     return <div style={style}>{content}</div>;
   };
 

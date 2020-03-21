@@ -4,7 +4,7 @@ import PeopleList from "./PeopleList";
 import PeopleSearch from "./PeopleSearch";
 import debounce from "lodash/debounce";
 
-const Finder = () => {
+const Finder: React.FC<{}> = () => {
   const [search, setSearch] = useState(null);
 
   const debounced = debounce(e => {

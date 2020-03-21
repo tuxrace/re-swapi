@@ -2,9 +2,9 @@ import { createSelector } from 'reselect'
 
 const peopleSelector = (state: any) => state.people;
 
-export const peopleListState = createSelector(
+export const peopleDataState = createSelector(
   peopleSelector,
-  people => people.list,
+  people => people.peopleData,
 )
 
 export const responseListState = createSelector(
