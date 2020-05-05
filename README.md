@@ -8,6 +8,7 @@ Technolgies used
 - Axios
 - Material UI
 - Typescript
+- React Window
 
 ## Scripts to run
 
