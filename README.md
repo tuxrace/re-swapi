@@ -1,4 +1,5 @@
 Starwars API people finder
+https://tuxrace.github.io/react-load-more/
 
 Technolgies used
 
