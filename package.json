@@ -2,6 +2,7 @@
   "name": "re-swapi",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://tuxrace.github.io/react-load-more",
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@reduxjs/toolkit": "^1.2.5",
@@ -18,6 +19,7 @@
     "@types/react-window": "^1.8.1",
     "@types/react-window-infinite-loader": "^1.0.2",
     "axios": "^0.19.2",
+    "gh-pages": "^2.2.0",
     "lodash": "^4.17.15",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
@@ -33,7 +35,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
