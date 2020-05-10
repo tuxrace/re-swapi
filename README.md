@@ -1,6 +1,6 @@
 Starwars API people finder feature load more
 
-### URL
+### Demo
 https://tuxrace.github.io/react-load-more/
 
 Technolgies used
