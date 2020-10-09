@@ -1,4 +1,4 @@
-Starwars API people finder feature load more
+Starwars API people finder feature load more.
 
 ### Demo
 https://tuxrace.github.io/react-load-more/
